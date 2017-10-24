@@ -14,8 +14,11 @@ namespace ISO9660 {
 	public class IsoImage {
 		MsftFileSystemImage ISO;
 
-		[DllImport("shlwapi.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+		[DllImport("shlwapi", CharSet = CharSet.Unicode, PreserveSig = true)]
 		static extern void SHCreateStreamOnFile(string pszFile, uint grfMode, out IStream ppstm);
+
+		[DllImport("shlwapi", CharSet = CharSet.Unicode, PreserveSig = true)]
+		static extern IStream SHCreateMemStream(byte[] Data, uint Len);
 
 		public IsoImage(string VolumeName) {
 			ISO = new MsftFileSystemImage();
@@ -24,17 +27,60 @@ namespace ISO9660 {
 			ISO.VolumeName = VolumeName;
 		}
 
-		public void CreateFile(string FileName, Stream S) {
+		public void SetBootImage(Stream S) {
+			using (MemoryStream MS = new MemoryStream()) {
+				S.CopyTo(MS);
+				SetBootImage(MS.ToArray());
+			}
 		}
 
-		public void WriteToFile(string FileName) {
-			IFileSystemImageResult Res = ISO.CreateResultImage();
+		public void SetBootImage(byte[] Data) {
+			FsiStream S = (FsiStream)SHCreateMemStream(Data, (uint)Data.Length);
 
+			BootOptions BootImageOptions = new BootOptions();
+			BootImageOptions.Manufacturer = "cartman300/ISO9660";
+			BootImageOptions.Emulation = EmulationType.EmulationNone;
+			BootImageOptions.PlatformId = PlatformId.PlatformX86;
+			BootImageOptions.AssignBootImage(S);
+
+			ISO.BootImageOptions = BootImageOptions;
+		}
+
+		public void AddFile(string FileName, Stream S) {
+			using (MemoryStream MS = new MemoryStream()) {
+				S.CopyTo(MS);
+				AddFile(FileName, MS.ToArray());
+			}
+		}
+
+		public void AddFile(string FileName, byte[] Data) {
+			ISO.Root.AddFile(FileName, (FsiStream)SHCreateMemStream(Data, (uint)Data.Length));
+		}
+
+		public void AddDirectory(string DirName) {
+			ISO.Root.AddDirectory(DirName);
+		}
+
+		public void AddTree(string Source, bool IncludeBase = false) {
+			ISO.Root.AddTree(Source, IncludeBase);
+		}
+
+
+		public void WriteToFile(string FileName, bool Overwrite = true) {
+			IFileSystemImageResult Res = ISO.CreateResultImage();
 			IStream ImgStream = (IStream)Res.ImageStream;
-			STATSTG Stat;
-			ImgStream.Stat(out Stat, 0x1);
 
 			if (ImgStream != null) {
+				STATSTG Stat;
+				ImgStream.Stat(out Stat, 0x1);
+
+				if (File.Exists(FileName)) {
+					if (Overwrite)
+						File.Delete(FileName);
+					else
+						throw new Exception("File already exists: " + FileName);
+				}
+
 				IStream OutStream;
 				SHCreateStreamOnFile(FileName, 0x1001, out OutStream);
 
