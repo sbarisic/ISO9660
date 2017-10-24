@@ -118,7 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="grub2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\grub2.img;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="boot_catalog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\boot_catalog;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="boot_hybrid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\boot_hybrid.img;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="en_AU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\en_AU.mo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="en_CA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\en_CA.mo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="en_GB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\en_GB.mo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hr.mo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="i386pc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\i386pc.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="unicode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unicode.pf2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

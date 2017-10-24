@@ -38,11 +38,10 @@ namespace ISO9660 {
 			FsiStream S = (FsiStream)SHCreateMemStream(Data, (uint)Data.Length);
 
 			BootOptions BootImageOptions = new BootOptions();
-			BootImageOptions.Manufacturer = "cartman300/ISO9660";
+			BootImageOptions.Manufacturer = "Microsoft";
 			BootImageOptions.Emulation = EmulationType.EmulationNone;
 			BootImageOptions.PlatformId = PlatformId.PlatformX86;
 			BootImageOptions.AssignBootImage(S);
-
 			ISO.BootImageOptions = BootImageOptions;
 		}
 
@@ -53,12 +52,22 @@ namespace ISO9660 {
 			}
 		}
 
-		public void AddFile(string FileName, byte[] Data) {
-			ISO.Root.AddFile(FileName, (FsiStream)SHCreateMemStream(Data, (uint)Data.Length));
+		public bool AddFile(string FileName, byte[] Data) {
+			try {
+				ISO.Root.AddFile(FileName, (FsiStream)SHCreateMemStream(Data, (uint)Data.Length));
+			} catch (Exception) {
+				return false;
+			}
+			return true;
 		}
 
-		public void AddDirectory(string DirName) {
-			ISO.Root.AddDirectory(DirName);
+		public bool AddDirectory(string DirName) {
+			try {
+				ISO.Root.AddDirectory(DirName);
+			} catch (Exception) {
+				return false;
+			}
+			return true;
 		}
 
 		public void AddTree(string Source, bool IncludeBase = false) {

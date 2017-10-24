@@ -63,9 +63,79 @@ namespace mkisofs2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] grub2 {
+        internal static byte[] boot_catalog {
             get {
-                object obj = ResourceManager.GetObject("grub2", resourceCulture);
+                object obj = ResourceManager.GetObject("boot_catalog", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] boot_hybrid {
+            get {
+                object obj = ResourceManager.GetObject("boot_hybrid", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] en_AU {
+            get {
+                object obj = ResourceManager.GetObject("en_AU", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] en_CA {
+            get {
+                object obj = ResourceManager.GetObject("en_CA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] en_GB {
+            get {
+                object obj = ResourceManager.GetObject("en_GB", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] hr {
+            get {
+                object obj = ResourceManager.GetObject("hr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] i386pc {
+            get {
+                object obj = ResourceManager.GetObject("i386pc", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] unicode {
+            get {
+                object obj = ResourceManager.GetObject("unicode", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,7 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Resources\grub2.img" />
+    <None Include="Resources\boot_catalog" />
+    <None Include="Resources\boot_hybrid.img" />
+    <None Include="Resources\en_AU.mo" />
+    <None Include="Resources\en_CA.mo" />
+    <None Include="Resources\en_GB.mo" />
+    <None Include="Resources\hr.mo" />
+    <None Include="Resources\i386pc.zip" />
+    <None Include="Resources\unicode.pf2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ISO9660\ISO9660.csproj">

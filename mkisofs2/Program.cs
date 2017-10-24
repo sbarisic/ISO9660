@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Compression;
 using ISO9660;
 
 namespace mkisofs2 {
@@ -37,7 +38,7 @@ namespace mkisofs2 {
 
 			if (BootImg != null) {
 				if (BootImg == "-")
-					Console.WriteLine("Boot image is internal grub2 image");
+					Console.WriteLine("Boot image is internal boot_hybrid.img");
 				else
 					Console.WriteLine("Boot image is {0}", BootImg);
 			}
@@ -46,18 +47,41 @@ namespace mkisofs2 {
 			string Name = Path.GetFileNameWithoutExtension(Dir);
 			Console.Write("Creating {0} ... ", Name + ".iso");
 
-			IsoImage ISO = new IsoImage(Name);
+			IsoImage ISO = new IsoImage("ISOIMAGE");
 			ISO.AddTree(Dir);
 
 			if (BootImg != null) {
-				if (BootImg == "-")
-					ISO.SetBootImage(Properties.Resources.grub2);
-				else
+				if (BootImg == "-") {
+					ISO.AddDirectory("boot");
+					ISO.AddDirectory("boot/grub");
+					ISO.AddDirectory("boot/grub/fonts");
+					ISO.AddDirectory("boot/grub/i386-pc");
+					ISO.AddDirectory("boot/grub/locale");
+					ISO.AddDirectory("boot/grub/roms");
+
+					ISO.AddFile("boot/grub/fonts/unicode.pf2", Properties.Resources.unicode);
+					ISO.AddFile("boot/grub/locale/en_GB.mo", Properties.Resources.en_GB);
+					ISO.AddFile("boot/grub/locale/en_AU.mo", Properties.Resources.en_AU);
+					ISO.AddFile("boot/grub/locale/en_CA.mo", Properties.Resources.en_CA);
+					ISO.AddFile("boot/grub/locale/hr.mo", Properties.Resources.hr);
+
+					ISO.AddFile("boot.catalog", Properties.Resources.boot_catalog);
+
+					MemoryStream i386pc = new MemoryStream(Properties.Resources.i386pc);
+					using (ZipArchive Arch = new ZipArchive(i386pc, ZipArchiveMode.Read, false)) {
+						foreach (var E in Arch.Entries)
+							using (Stream ES = E.Open())
+								ISO.AddFile("boot/grub/i386-pc/" + E.FullName, ES);
+						
+					}
+
+					ISO.SetBootImage(Properties.Resources.boot_hybrid);
+				} else
 					ISO.SetBootImage(File.ReadAllBytes(BootImg));
 			}
 
-			ISO.WriteToFile(Name + ".iso");
 
+			ISO.WriteToFile(Name + ".iso");
 			Console.WriteLine("OK");
 		}
 	}
